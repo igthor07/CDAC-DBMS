@@ -1,0 +1,241 @@
+PRN: 260840325081
+NAME: UTTKARSH DASHRATH CHAVAN
+EMAIL:pgcpbdauttkarshchavan082aug26@gmail.com
+
+==============================================================================================================
+UPDATE QUERRY
+==============================================================================================================
+
+1. Write a SQL statement to change the email column of the employees table with 'not available' for all employees.
+SOLUTION:
+mysql> CREATE TABLE DEPT (
+    ->     d_id INT PRIMARY KEY,
+    ->     d_name VARCHAR(50)
+    -> );
+mysql> ALTER TABLE DEPT
+    -> ADD COLUMN EMAIL VARCHAR(20);
+mysql> UPDATE DEPT
+    -> SET EMAIL = 'NOT AVAILABLE'
+    -> ;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM DEPT;
++------+--------+---------------+
+| d_id | d_name | EMAIL         |
++------+--------+---------------+
+| 1001 | SALES  | NOT AVAILABLE |
+| 1002 | it     | NOT AVAILABLE |
++------+--------+---------------+
+2 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+2. Write a SQL statement to change the email and commission_pct column of employees table with 'not available' and 0.10 for all employees.
+
+SOLUTION:
+mysql> ALTER TABLE DEPT
+    -> ADD COLUMN COMMISSION_PCT DECIMAL(4,2);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE DEPT
+    -> SET EMAIL = 'not available',
+    -> COMMISSION_PCT = 0.10;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM DEPT;
++------+--------+---------------+----------------+
+| d_id | d_name | EMAIL         | COMMISSION_PCT |
++------+--------+---------------+----------------+
+| 1001 | SALES  | not available |           0.10 |
+| 1002 | it     | not available |           0.10 |
++------+--------+---------------+----------------+
+2 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+3. Write a SQL statement to change the email and commission_pct column of employees table with 'not available' and 0.10 for those employees whose department_id is 110.
+SOLUTION:
+mysql> CREATE TABLE EMPLOYEES (
+    ->     EMPLOYEE_ID INT PRIMARY KEY,
+    ->     FIRST_NAME VARCHAR(50),
+    ->     LAST_NAME VARCHAR(50),
+    ->     EMAIL VARCHAR(20),
+    ->     COMMISSION_PCT DECIMAL(4,2),
+    ->     DEPARTMENT_ID INT
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> INSERT INTO EMPLOYEES
+    -> (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, COMMISSION_PCT, DEPARTMENT_ID)
+    -> VALUES
+    -> (101, 'TONY', 'STARK', 'tony@gmail.com', 0.15, 80),
+    -> (102, 'STEVE', 'ROGERS', 'steve@gmail.com', 0.20, 110),
+    -> (103, 'BRUCE', 'BANNER', 'bruce@gmail.com', 0.10, 110),
+    -> (104, 'THOR', 'ODINSON', 'thor@gmail.com', 0.25, 90),
+    -> (105, 'NATASHA', 'ROMANOFF', 'natasha@gmail.com', 0.05, 110),
+    -> (106, 'CLINT', 'BARTON', 'clint@gmail.com', 0.15, 80);
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMPLOYEES
+    -> SET EMAIL = 'NOT AVAILABLE', COMMISSION_PCT = 0.10
+    -> WHERE DEPARTMENT_ID = 110;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------------+------------+-----------+-----------------+----------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL           | COMMISSION_PCT | DEPARTMENT_ID |
++-------------+------------+-----------+-----------------+----------------+---------------+
+|         101 | TONY       | STARK     | tony@gmail.com  |           0.15 |            80 |
+|         102 | STEVE      | ROGERS    | NOT AVAILABLE   |           0.10 |           110 |
+|         103 | BRUCE      | BANNER    | NOT AVAILABLE   |           0.10 |           110 |
+|         104 | THOR       | ODINSON   | thor@gmail.com  |           0.25 |            90 |
+|         105 | NATASHA    | ROMANOFF  | NOT AVAILABLE   |           0.10 |           110 |
+|         106 | CLINT      | BARTON    | clint@gmail.com |           0.15 |            80 |
++-------------+------------+-----------+-----------------+----------------+---------------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+4. Write a SQL statement to change the email column of employees table with 'not available' for those employees whose department_id is 80 and gets a commission_pct is less than 20
+
+SOLUTION:
+
+mysql> UPDATE EMPLOYEES
+    -> SET EMAIL = 'not available'
+    -> WHERE DEPARTMENT_ID = 80
+    ->   AND COMMISSION_PCT < 0.20;
+Query OK, 2 rows affected (0.30 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------------+------------+-----------+----------------+----------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL          | COMMISSION_PCT | DEPARTMENT_ID |
++-------------+------------+-----------+----------------+----------------+---------------+
+|         101 | TONY       | STARK     | not available  |           0.15 |            80 |
+|         102 | STEVE      | ROGERS    | NOT AVAILABLE  |           0.10 |           110 |
+|         103 | BRUCE      | BANNER    | NOT AVAILABLE  |           0.10 |           110 |
+|         104 | THOR       | ODINSON   | thor@gmail.com |           0.25 |            90 |
+|         105 | NATASHA    | ROMANOFF  | NOT AVAILABLE  |           0.10 |           110 |
+|         106 | CLINT      | BARTON    | not available  |           0.15 |            80 |
++-------------+------------+-----------+----------------+----------------+---------------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Write a SQL statement to change the email column of the employees table with 'not available' for those employees who belong to the 'Accounting' department.
+
+SOLUTION:
+mysql> UPDATE EMPLOYEES
+    -> SET EMAIL = 'not available'
+    -> WHERE DEPARTMENT = 'Accounting';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------------+------------+-----------+----------------+----------------+---------------+------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL          | COMMISSION_PCT | DEPARTMENT_ID | DEPARTMENT |
++-------------+------------+-----------+----------------+----------------+---------------+------------+
+|         101 | TONY       | STARK     | not available  |           0.15 |            80 | Sales      |
+|         102 | STEVE      | ROGERS    | not available  |           0.10 |           110 | Accounting |
+|         103 | BRUCE      | BANNER    | not available  |           0.10 |           110 | Accounting |
+|         104 | THOR       | ODINSON   | thor@gmail.com |           0.25 |            90 | Executive  |
+|         105 | NATASHA    | ROMANOFF  | not available  |           0.10 |           110 | Accounting |
+|         106 | CLINT      | BARTON    | not available  |           0.15 |            80 | Sales      |
++-------------+------------+-----------+----------------+----------------+---------------+------------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+6.Write a SQL statement to change the salary of an employee to 8000 whose ID is 105, if the existing salary is less than 5000.
+
+SOLUTION:
+mysql> SELECT * FROM EMPLOYEES;
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL             | COMMISSION_PCT | DEPARTMENT_ID | DEPARTMENT | SALARY   |
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+|         101 | TONY       | STARK     | tony@gmail.com    |           0.15 |            80 | Sales      |  6000.00 |
+|         102 | STEVE      | ROGERS    | steve@gmail.com   |           0.10 |           110 | Accounting |  4500.00 |
+|         103 | BRUCE      | BANNER    | bruce@gmail.com   |           0.10 |           110 | Accounting |  4800.00 |
+|         104 | THOR       | ODINSON   | thor@gmail.com    |           0.25 |            90 | Executive  | 12000.00 |
+|         105 | NATASHA    | ROMANOFF  | natasha@gmail.com |           0.10 |           110 | Accounting |  3500.00 |
+|         106 | CLINT      | BARTON    | clint@gmail.com   |           0.15 |            80 | Sales      |  7000.00 |
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+mysql> UPDATE EMPLOYEES
+    -> SET SALARY = 8000
+    -> WHERE EMPLOYEE_ID = 105
+    -> AND SALARY < 5000;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL             | COMMISSION_PCT | DEPARTMENT_ID | DEPARTMENT | SALARY   |
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+|         101 | TONY       | STARK     | tony@gmail.com    |           0.15 |            80 | Sales      |  6000.00 |
+|         102 | STEVE      | ROGERS    | steve@gmail.com   |           0.10 |           110 | Accounting |  4500.00 |
+|         103 | BRUCE      | BANNER    | bruce@gmail.com   |           0.10 |           110 | Accounting |  4800.00 |
+|         104 | THOR       | ODINSON   | thor@gmail.com    |           0.25 |            90 | Executive  | 12000.00 |
+|         105 | NATASHA    | ROMANOFF  | natasha@gmail.com |           0.10 |           110 | Accounting |  8000.00 |
+|         106 | CLINT      | BARTON    | clint@gmail.com   |           0.15 |            80 | Sales      |  7000.00 |
++-------------+------------+-----------+-------------------+----------------+---------------+------------+----------+
+
+-------------------------------------------------------------------------------------------------------------------
+
+9.Write a SQL statement to increase the minimum and maximum salary of PU_CLERK by 2000 as well as the salary for those employees by 20% and commission percent by .10
+SOLUTION:
+
+mysql> CREATE TABLE JOBS_Q9 (
+    ->     JOB_ID VARCHAR(20) PRIMARY KEY,
+    ->     JOB_TITLE VARCHAR(50),
+    ->     MIN_SALARY DECIMAL(10,2),
+    ->     MAX_SALARY DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO JOBS_Q9
+    -> (JOB_ID, JOB_TITLE, MIN_SALARY, MAX_SALARY)
+    -> VALUES
+    -> ('PU_CLERK', 'Purchasing Clerk', 2500, 5500),
+    -> ('IT_PROG', 'Programmer', 4000, 10000),
+    -> ('SA_REP', 'Sales Representative', 6000, 12000);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE EMPLOYEES_Q9 (
+    ->     EMPLOYEE_ID INT PRIMARY KEY,
+    ->     FIRST_NAME VARCHAR(50),
+    ->     LAST_NAME VARCHAR(50),
+    ->     EMAIL VARCHAR(50),
+    ->     JOB_ID VARCHAR(20),
+    ->     SALARY DECIMAL(10,2),
+    ->     COMMISSION_PCT DECIMAL(4,2),
+    ->
+    ->     FOREIGN KEY (JOB_ID)
+    ->     REFERENCES JOBS_Q9(JOB_ID)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO EMPLOYEES_Q9
+    -> (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, JOB_ID, SALARY, COMMISSION_PCT)
+    -> VALUES
+    -> (101, 'TONY', 'STARK', 'tony@gmail.com', 'IT_PROG', 6000, 0.10),
+    -> (102, 'STEVE', 'ROGERS', 'steve@gmail.com', 'PU_CLERK', 4000, 0.10),
+    -> (103, 'BRUCE', 'BANNER', 'bruce@gmail.com', 'PU_CLERK', 4500, 0.15),
+    -> (104, 'THOR', 'ODINSON', 'thor@gmail.com', 'SA_REP', 8000, 0.20),
+    -> (105, 'NATASHA', 'ROMANOFF', 'natasha@gmail.com', 'PU_CLERK', 3500, 0.05),
+    -> (106, 'CLINT', 'BARTON', 'clint@gmail.com', 'IT_PROG', 7000, 0.10);
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE JOBS_Q9
+    -> SET MIN_SALARY = MIN_SALARY + 2000,
+    -> MAX_SALARY = MAX_SALARY + 2000
+    -> WHERE JOB_ID = 'PU_CLERK';
+
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+

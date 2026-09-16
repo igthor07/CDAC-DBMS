@@ -1,0 +1,161 @@
+PRN: 260840325081
+NAME: UTTKARSH DASHRATH CHAVAN
+EMAIL:pgcpbdauttkarshchavan082aug26@gmail.com
+
+==============================================================================================================
+CREATE QUERRY
+==============================================================================================================
+
+1. Write a SQL statement to create a simple table of countries including columns country_id,country_name and region_id.
+SOLUTION:
+mysql> CREATE TABLE COUNTRIES (
+    ->     COUNTRY_ID VARCHAR(2),
+    ->     COUNTRY_NAME VARCHAR(40),
+    ->     REGION_ID DECIMAL(10,0)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DESC COUNTRIES;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+2. Write a SQL statement to create a simple table of countries including columns country_id,country_name and region_id which already exists.
+
+SOLUTION:
+
+mysql> CREATE TABLE COUNTRIES (
+    ->     COUNTRY_ID VARCHAR(2),
+    ->     COUNTRY_NAME VARCHAR(40),
+    ->     REGION_ID DECIMAL(10,0)
+    -> );
+ERROR 1050 (42S01): Table 'countries' already exists
+
+-------------------------------------------------------------------------------------------------------------------
+
+3. Write a SQL statement to create the structure of a table dup_countries similar to countries.
+
+mysql> CREATE TABLE DUP_COUNTRIES LIKE COUNTRIES;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DESC DUP_COUNTRIES;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+4. Write a SQL statement to create a duplicate copy of countries table including structure and data by name dup_countries.
+SOLUTION:
+mysql> CREATE TABLE DUP_COUNTRIES
+    -> SELECT * FROM COUNTRIES;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC DUP_COUNTRIES;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.
+
+SOLUTION:
+mysql> DROP TABLE COUNTRIES;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE COUNTRIES (
+    ->     COUNTRY_ID VARCHAR(2) NOT NULL,
+    ->     COUNTRY_NAME VARCHAR(40) NOT NULL,
+    ->     REGION_ID DECIMAL(10,0) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO COUNTRIES
+    -> VALUES ('IN', 'India', 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO COUNTRIES
+    -> VALUES (NULL, 'India', 1);
+ERROR 1048 (23000): Column 'COUNTRY_ID' cannot be null
+
+-------------------------------------------------------------------------------------------------------------------
+
+6. Write a SQL statement to create a table named jobs including columns job_id, job_title, min_salary, max_salary and check whether the max_salary amount exceeds the upper limit 25000.
+SOLUTION:
+mysql> CREATE TABLE JOBS01(
+    -> JOB_ID VARCHAR(10),
+    -> JOB_TITLE VARCHAR(35),
+    -> MIN_SALARY DECIMAL(10,2),
+    -> MAX_SALARY DECIMAL(10,2),
+    -> CHECK (MAX_SALARY <= 25000)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> DESC JOBS01;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)   | YES  |     | NULL    |       |
+| JOB_TITLE  | varchar(35)   | YES  |     | NULL    |       |
+| MIN_SALARY | decimal(10,2) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(10,2) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+7.Write a SQL statement to create a table named countries including columns country_id, country_name and region_id and make sure that no countries except Italy, India and China will be entered in the table.
+
+SOLUTION:
+
+mysql> CREATE TABLE COUNTRIES01(
+    -> COUNTRY_ID VARCHAR(2),
+    -> COUNTRY_NAME VARCHAR(40)
+    -> CHECK (COUNTRY_NAME IN ('Italy', 'India', 'China')),
+    -> REGION_ID DECIMAL(10,0)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+8. Write a SQL statement to create a table named job_histry including columns employee_id, start_date, end_date, job_id and department_id and make sure that the value against column end_date will be entered at the time of insertion to the format like '--/--/----'.
+-------------------------------------------------------------------------------------------------------------------
+9. Write a SQL statement to create a table named countries including columns country_id,country_name and region_id and make sure that no duplicate data against column country_id will be allowed at the time of insertion.
+mysql> CREATE TABLE COUNTRIES02(
+    -> COUNTRY_ID VARCHAR(2) PRIMARY KEY,
+    -> COUNTRY_NAME VARCHAR(40),
+    -> REGION_ID DECIMAL(10,0)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+10. Write a SQL statement to create a table named jobs including columns job_id, job_title, min_salary and max_salary, and make sure that, the default value for job_title is blank and min_salary is 8000 and max_salary is NULL will be entered automatically at the 10. time of insertion if no value assigned for the specified columns.
+
+mysql> CREATE TABLE JOBS02(
+    -> JOB_ID VARCHAR(10),
+    -> JOB_TITLE VARCHAR(35) DEFAULT '',
+    -> MIN_SALARY DECIMAL(10,2) DEFAULT 8000,
+    -> MAX_SALARY DECIMAL(10,2) DEFAULT NULL
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+-------------------------------------------------------------------------------------------------------------------
+
+

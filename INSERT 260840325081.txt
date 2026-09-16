@@ -1,0 +1,344 @@
+PRN: 260840325081
+NAME: UTTKARSH DASHRATH CHAVAN
+EMAIL:pgcpbdauttkarshchavan082aug26@gmail.com
+
+==============================================================================================================
+INSERT QUERRY
+==============================================================================================================
+1. Write a SQL statement to insert a record with your own value into the table countries against each column.
+Here in the following is the structure of the table countries.
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+	
+
+SOLUTION:-
+
+mysql> CREATE TABLE COUNTRY(
+    -> COUNTRY_ID VARCHAR(2),
+    -> COUNTRY_NAME VARCHAR(40),
+    -> REGIN_ID DECIMAL(10,0)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO COUNTRY VALUES('01','INDIA',12);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO COUNTRY VALUES('02','USA',16);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO COUNTRY VALUES('03','UK',38);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO COUNTRY VALUES('04','CHINA',44);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO COUNTRY VALUES('05','NEPAL',40);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM COUNTRY;
++------------+--------------+----------+
+| COUNTRY_ID | COUNTRY_NAME | REGIN_ID |
++------------+--------------+----------+
+| 01         | INDIA        |       12 |
+| 02         | USA          |       16 |
+| 03         | UK           |       38 |
+| 04         | CHINA        |       44 |
+| 05         | NEPAL        |       40 |
++------------+--------------+----------+
+5 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+2. Write a SQL statement to insert one row into the table countries against the column country_id and country_name.
+Here in the following is the structure of the table countries.
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+	
+
+SOLUTION:
+mysql> INSERT INTO COUNTRY VALUES('06','SPAIN',45);
+Query OK, 1 row affected (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+
+3. Write a SQL statement to create duplicate of countries table named country_new with all structure and data.
+Here in the following is the structure of the table countries.
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | YES  |     | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+	
+
+SOLUTION:
+mysql> CREATE TABLE country_new SELECT * FROM COUNTRY;
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM country_new;
++------------+--------------+----------+
+| COUNTRY_ID | COUNTRY_NAME | REGIN_ID |
++------------+--------------+----------+
+| 01         | INDIA        |       12 |
+| 02         | USA          |       16 |
+| 03         | UK           |       38 |
+| 04         | CHINA        |       44 |
+| 05         | NEPAL        |       40 |
+| 06         | SPAIN        |       45 |
++------------+--------------+----------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+4. Write a SQL statement to insert NULL values against the region_id column for a row of countries table.
+SOLUTION:
+mysql> INSERT INTO COUNTRY VALUES('07','MEXICO',NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM country;
++------------+--------------+----------+
+| COUNTRY_ID | COUNTRY_NAME | REGIN_ID |
++------------+--------------+----------+
+| 01         | INDIA        |       12 |
+| 02         | USA          |       16 |
+| 03         | UK           |       38 |
+| 04         | CHINA        |       44 |
+| 05         | NEPAL        |       40 |
+| 06         | SPAIN        |       45 |
+| 07         | MEXICO       |     NULL |
++------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Write a SQL statement to insert 3 rows by a single insert statement.
+SOLUTION:
+mysql> INSERT INTO COUNTRY VALUES('08','ITALY',87),('09','ARGENTINA',90),('10','ENGLAND',50);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM country;
++------------+--------------+----------+
+| COUNTRY_ID | COUNTRY_NAME | REGIN_ID |
++------------+--------------+----------+
+| 01         | INDIA        |       12 |
+| 02         | USA          |       16 |
+| 03         | UK           |       38 |
+| 04         | CHINA        |       44 |
+| 05         | NEPAL        |       40 |
+| 06         | SPAIN        |       45 |
+| 07         | MEXICO       |     NULL |
+| 08         | ITALY        |       87 |
+| 09         | ARGENTINA    |       90 |
+| 10         | ENGLAND      |       50 |
++------------+--------------+----------+
+10 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+6. Write a SQL statement insert rows from country_new table to countries table.
+Here are the rows for the country_new table. Assume that the country's table is empty.
++------------+--------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME | REGION_ID |
++------------+--------------+-----------+
+| C0001      | India        |      1001 |
+| C0002      | USA          |      1007 |
+| C0003      | UK           |      1003 |
++------------+--------------+-----------+
+
+SOLUTION:
+
+mysql> INSERT INTO COUNTRY
+    -> SELECT * FROM COUNTRY_NEW;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM COUNTRY;
++------------+--------------+----------+
+| COUNTRY_ID | COUNTRY_NAME | REGIN_ID |
++------------+--------------+----------+
+| 01         | INDIA        |       12 |
+| 02         | USA          |       16 |
+| 03         | UK           |       38 |
+| 04         | CHINA        |       44 |
+| 05         | NEPAL        |       40 |
+| 06         | SPAIN        |       45 |
+| 07         | MEXICO       |     NULL |
+| 08         | ITALY        |       87 |
+| 09         | ARGENTINA    |       90 |
+| 10         | ENGLAND      |       50 |
+| C1         | India        |     1001 |
+| C2         | USA          |     1007 |
+| C3         | UK           |     1003 |
++------------+--------------+----------+
+13 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+7. Write a SQL statement to insert one row in jobs table to ensure that no duplicate value will be entered in the job_id column.
+
+SOLUTION:
+mysql> CREATE TABLE JOBS(
+    -> JOB_ID INT PRIMARY KEY,
+    -> JOB_NAME VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> INSERT INTO JOBS
+    -> VALUES
+    -> (1,'IT'),
+    -> (2,'SALES');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESC JOBS;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| JOB_ID   | int         | NO   | PRI | NULL    |       |
+| JOB_NAME | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM JOBS;
++--------+----------+
+| JOB_ID | JOB_NAME |
++--------+----------+
+|      1 | IT       |
+|      2 | SALES    |
++--------+----------+
+2 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+8. Write a SQL statement to insert one row in jobs table to ensure that no duplicate value will be entered in the job_id column.
+
+SOLUTION:
+mysql> INSERT INTO JOBS
+    -> VALUES
+    -> (2,'ACCOUNT');
+ERROR 1062 (23000): Duplicate entry '2' for key 'jobs.PRIMARY'
+
+-------------------------------------------------------------------------------------------------------------------
+
+9. Write a SQL statement to insert a record into the table countries to ensure that, a country_id and region_id combination will be entered once in the table.
+SOLUTION:
+
+mysql> ALTER TABLE COUNTRY
+    -> ADD CONSTRAINT UNIQUE (country_id, regin_id);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO COUNTRY VALUES
+    -> ('C1','India',1001)
+    -> ;
+ERROR 1062 (23000): Duplicate entry 'C1-1001' for key 'country.COUNTRY_ID'
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+10. Write a SQL statement to insert rows into the table countries in which the value of country_id column will be unique and auto incremented.
+SOLUTION:
+
+mysql> CREATE TABLE COUNTRIES (
+    -> COUNTRY_ID INT AUTO_INCREMENT PRIMARY KEY,
+    -> COUNTRY_NAME VARCHAR(40),
+    -> REGION_ID INT
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+REGION_ID INT
+);
+
+mysql> INSERT INTO COUNTRIES (COUNTRY_NAME, REGION_ID)
+    -> VALUES
+    ->('INDIA', 1001),
+    ->('USA', 1007),
+    -> ('UK', 1003);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM COUNTRIES;
++------------+--------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME | REGION_ID |
++------------+--------------+-----------+
+|          1 | INDIA        |      1001 |
+|          2 | USA          |      1007 |
+|          3 | UK           |      1003 |
++------------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+11. Write a SQL statement to insert records into the table countries to ensure that the country_id column will not contain any duplicate data and this will be automatically incremented and the column country_name will be filled up by 'N/A' if no value assigned for that column.
+
+SOLUTION:
+
+mysql> CREATE TABLE COUNTRIES (
+    -> COUNTRY_ID INT AUTO_INCREMENT PRIMARY KEY,
+    -> COUNTRY_NAME VARCHAR(40) DEFAULT 'N/A',
+    -> REGION_ID INT
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> DESC COUNTRIES;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| COUNTRY_ID   | int         | NO   | PRI | NULL    | auto_increment |
+| COUNTRY_NAME | varchar(40) | YES  |     | N/A     |                |
+| REGION_ID    | int         | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql>
+mysql> INSERT INTO COUNTRIES (REGION_ID)
+    -> VALUES (1001);
+Query OK, 1 row affected (0.01 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
+12. Write a SQL statement to insert rows in the job_history table in which one column job_id is containing those values which are exists in job_id column of jobs table.
+
+SOLUTION:
+
+mysql> CREATE TABLE JOB_HISTORY (
+    -> EMPLOYEE_ID INT,
+    -> START_DATE DATE,
+    -> END_DATE DATE,
+    -> JOB_ID INT,
+    -> DEPARTMENT_ID INT,
+    -> PRIMARY KEY (EMPLOYEE_ID, START_DATE),
+    -> FOREIGN KEY (JOB_ID) REFERENCES JOBS(JOB_ID)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO JOB_HISTORY (EMPLOYEE_ID, START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID)
+    -> VALUES (101, '2023-01-01', '2024-01-01', 1, 60);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO JOB_HISTORY (EMPLOYEE_ID, START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID)
+    -> SELECT 101, '2023-01-01', '2024-01-01', JOB_ID, 60
+    -> FROM JOBS
+    -> WHERE JOB_ID = 1;
+ERROR 1062 (23000): Duplicate entry '101-2023-01-01' for key 'job_history.PRIMARY'
+mysql> SELECT * FROM JOB_HISTORY;
++-------------+------------+------------+--------+---------------+
+| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID | DEPARTMENT_ID |
++-------------+------------+------------+--------+---------------+
+|         101 | 2023-01-01 | 2024-01-01 |      1 |            60 |
++-------------+------------+------------+--------+---------------+
+1 row in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------
+
